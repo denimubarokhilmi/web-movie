@@ -16,7 +16,7 @@
             }`"
             alt="detail"
           />
-          <h4 class="text-white mt-3">{{ tvSeriesDetail?.title }}</h4>
+          <h4 class="text-white mt-3">{{ tvSeriesDetail?.name }}</h4>
         </div>
         <div class="col-md-8">
           <p class="text-white synopsis">
@@ -41,7 +41,7 @@
             </p>
             <p>Rating : {{ tvSeriesDetail?.vote_average.toFixed(1) }}</p>
             <p>Status : {{ tvSeriesDetail?.status }}</p>
-            <p>Tanggal rilis : {{ tvSeriesDetail?.release_date }}</p>
+            <p>Tanggal rilis : {{ tvSeriesDetail?.first_air_date }}</p>
           </div>
           <!-- Button to Open the Modal -->
           <button
@@ -130,7 +130,7 @@ setTimeout(() => {
     }
   })();
 }, 500);
-
+console.log(tvSeriesDetail);
 const pathYouTube = `https://www.youtube.com/embed/`;
 async function trailler() {
   const iframe = document.querySelector(".trailler-movie");
