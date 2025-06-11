@@ -1,6 +1,6 @@
 <template>
-  <section class="container-fluid bg-black p-2">
-    <div class="container">
+  <section class="container-fluid page-tv-show bg-black p-2">
+    <div class="container" v-if="moviesDetail.length != 0">
       <div style="margin-top: 100px"></div>
       <div class="row">
         <div class="col-md-4 mb-3 text-center">
@@ -90,24 +90,46 @@ import {
   detailMovies,
   getTrailler,
 } from "@/assets/detailTvShow.js";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 const directors = ref("");
 const moviesDetail = ref("");
 const pathImage = "https://image.tmdb.org/t/p/";
 const id = ref("");
 id.value = movie_id;
-(async function () {
-  try {
-    const responseDetailMovies = await detailMovies(id.value.value[0]);
-    const responseDirector = await director(id.value.value[0]);
-    directors.value = responseDirector;
-    moviesDetail.value = responseDetailMovies;
-    return;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-})();
+onMounted(() => {
+  const page_tv_show = document.querySelector(".page-tv-show");
+  page_tv_show.insertAdjacentHTML(
+    "afterbegin",
+    `<div class="create-spinner text-center mt-2">
+      <div class="spinner-border text-warning"></div>
+      <p class="text-white">Please wait..</p>
+    </div>`
+  );
+});
+setTimeout(() => {
+  (async function () {
+    try {
+      const spiner = document.querySelector(".create-spinner");
+      const responseDetailMovies = await detailMovies(id.value.value[0]);
+      const responseDirector = await director(id.value.value[0]);
+      spiner.remove();
+      directors.value = responseDirector;
+      moviesDetail.value = responseDetailMovies;
+      return;
+    } catch (error) {
+      if (!error.ok) {
+        const spiner = document.querySelector(".create-spinner");
+        const page_movie_detail = document.querySelector(".page-tv-show");
+        page_movie_detail.insertAdjacentHTML(
+          "beforeend",
+          `<h4 class="text-warning text-center">Please Serching</h4>`
+        );
+        spiner.remove();
+      }
+      return;
+    }
+  })();
+}, 500);
 const pathYouTube = `https://www.youtube.com/embed/`;
 async function trailler() {
   const iframe = document.querySelector(".trailler-movie");
