@@ -1,6 +1,6 @@
 <template>
   <div class="page-new-relase container-md p-1">
-    <h6 class="text-uppercase streaming text-secondary mt-4">Movies</h6>
+    <h6 class="text-uppercase streaming text-secondary mt-4">Tv Show</h6>
     <h2 class="section-title">
       <span class="highlight">Tv Series</span>
     </h2>
@@ -50,17 +50,16 @@ const pathAPI = `https://api.themoviedb.org/3/tv/popular?language=en-US&page=1`;
   }
 })();
 async function BtnMoreMovie(ev) {
-   ev.target.parentElement.previousElementSibling.insertAdjacentHTML(
-    "afterend",
-    index.createSpinner()
-  );
-  ev.target.disabled = true;
   const res = await index.callAPi(
     `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${count.value}`
   );
   const result = await res.json();
   count.value++;
- 
+  ev.target.parentElement.previousElementSibling.insertAdjacentHTML(
+    "afterend",
+    index.createSpinner()
+  );
+  ev.target.disabled = true;
   setTimeout(() => {
     const spiner = document.querySelector(".create-spinner");
     result.results.forEach((element) => {
