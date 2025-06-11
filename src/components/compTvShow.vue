@@ -62,11 +62,11 @@ async function BtnMoreMovie(ev) {
   ev.target.disabled = true;
   setTimeout(() => {
     const spiner = document.querySelector(".create-spinner");
-    spiner.remove();
-    ev.target.disabled = false;
     result.results.forEach((element) => {
       MoreDataMovies.value.results.push(element);
     });
+    spiner.remove();
+    ev.target.disabled = false;
   }, 1000);
 }
 </script>
