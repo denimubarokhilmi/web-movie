@@ -111,11 +111,11 @@ setTimeout(() => {
   (async function () {
     try {
       const spiner = document.querySelector(".create-spinner");
-      const responseDetailMovies = detailMovies(id.value.value[0]);
-      const responseDirector = director(id.value.value[0]);
+      const responseDetailMovies = await detailMovies(id.value.value[0]);
+      const responseDirector = await director(id.value.value[0]);
       spiner.remove();
-      directors.value = await responseDirector;
-      moviesDetail.value = await responseDetailMovies;
+      directors.value = responseDirector;
+      moviesDetail.value = responseDetailMovies;
     } catch (error) {
       if (!error.ok) {
         const spiner = document.querySelector(".create-spinner");
