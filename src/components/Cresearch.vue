@@ -1,6 +1,6 @@
 <template>
   <section class="research container-fluid bg-black p-1">
-    <div class="container-md mt-4">
+    <div class="container-md mt-4" v-if="resultMovie.length !== 0">
       <div class="d-flex align-items-center">
         <button
           @click="handleActives"
@@ -42,6 +42,7 @@
         ></slot>
       </div>
     </div>
+    <h4 v-else class="text-warning text-center">Please Searching..</h4>
   </section>
 </template>
 <script setup>
