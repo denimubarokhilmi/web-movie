@@ -55,7 +55,7 @@
             v-model="writingInput"
             type="text"
             class="search-input"
-            placeholder="Find Favorite Movies"
+            placeholder="Find Favorite Moviesss"
           />
           <i
             @click.prevent="HandleinputByKeyCode"
@@ -126,18 +126,32 @@ const HandleinputByKeyCode = async function (event) {
   try {
     const key = event?.code || "submit";
     if (event.code === "Enter" || event.type === "click" || key === "submit") {
+      const inputGroup = document.querySelector(".input-group-text");
+      inputGroup.insertAdjacentHTML(
+        "beforeend",
+        `   <span class=" ms-2 create-spinner text-center fs-6">
+                <span
+                  class="spinner-border spinner-border-sm text-white fs-6"
+                ></span>
+              </span>`
+      );
       const response = await index.callAPi(
         `https://api.themoviedb.org/3/search/movie?query=${writingInput.value.trim()}&include_adult=false&language=en-US&page=1`
       );
       const result = await response.json();
-      if (searchMovies.value.length !== 0) {
-        searchMovies.value.length = 0;
+      setTimeout(() => {
+        const spiner = document.querySelector(".create-spinner");
+        spiner.remove();
+
+        if (searchMovies.value.length !== 0) {
+          searchMovies.value.length = 0;
+          searchMovies.value.push(...result.results);
+          writingInput.value = "";
+        }
         searchMovies.value.push(...result.results);
+        router.push("/research");
         writingInput.value = "";
-      }
-      searchMovies.value.push(...result.results);
-      router.push("/research");
-      writingInput.value = "";
+      }, 1000);
     }
   } catch (error) {
     console.log(error);
