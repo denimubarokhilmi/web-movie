@@ -1,6 +1,6 @@
 <template>
   <section class="container-fluid page-tv-show bg-black p-2">
-    <div class="container" v-if="moviesDetail.length != 0">
+    <div class="container" v-if="tvSeriesDetail.length != 0">
       <div style="margin-top: 100px"></div>
       <div class="row">
         <div class="col-md-4 mb-3 text-center">
@@ -9,25 +9,25 @@
             :src="`${
               pathImage +
               `w300/${
-                moviesDetail.poster_path == null
-                  ? moviesDetail.backdrop_path
-                  : moviesDetail.poster_path
+                tvSeriesDetail.poster_path == null
+                  ? tvSeriesDetail.backdrop_path
+                  : tvSeriesDetail.poster_path
               }`
             }`"
             alt="detail"
           />
-          <h4 class="text-white mt-3">{{ moviesDetail?.title }}</h4>
+          <h4 class="text-white mt-3">{{ tvSeriesDetail?.title }}</h4>
         </div>
         <div class="col-md-8">
           <p class="text-white synopsis">
             <span class="text-white fw-bold">Synopsis : </span
-            >{{ moviesDetail?.overview }}
+            >{{ tvSeriesDetail?.overview }}
           </p>
           <div class="detail-movie mt-3 text-white">
             <p>
               Negara :
               <span
-                v-for="(item, index) in moviesDetail?.origin_country"
+                v-for="(item, index) in tvSeriesDetail?.origin_country"
                 :key="index - 1"
                 >{{ item }},</span
               >
@@ -35,13 +35,13 @@
             <p>Sutradara : {{ directors?.name }}</p>
             <p>
               Genre :
-              <span v-for="(item, index) in moviesDetail?.genres" :key="index"
+              <span v-for="(item, index) in tvSeriesDetail?.genres" :key="index"
                 >{{ item?.name }},</span
               >
             </p>
-            <p>Rating : {{ moviesDetail?.vote_average.toFixed(1) }}</p>
-            <p>Status : {{ moviesDetail?.status }}</p>
-            <p>Tanggal rilis : {{ moviesDetail?.release_date }}</p>
+            <p>Rating : {{ tvSeriesDetail?.vote_average.toFixed(1) }}</p>
+            <p>Status : {{ tvSeriesDetail?.status }}</p>
+            <p>Tanggal rilis : {{ tvSeriesDetail?.release_date }}</p>
           </div>
           <!-- Button to Open the Modal -->
           <button
@@ -85,17 +85,17 @@
 </template>
 <script setup>
 import {
-  movie_id,
-  director,
-  detailMovies,
-  getTrailler,
+  TvSeries_id,
+  directorTV,
+  detailTvSeries,
+  getTraillerTvSeries,
 } from "@/assets/detailTvShow.js";
 import { ref, onMounted } from "vue";
 const directors = ref("");
-const moviesDetail = ref("");
+const tvSeriesDetail = ref("");
 const pathImage = "https://image.tmdb.org/t/p/";
 const id = ref("");
-id.value = movie_id;
+id.value = TvSeries_id;
 onMounted(() => {
   const page_tv_show = document.querySelector(".page-tv-show");
   page_tv_show.insertAdjacentHTML(
@@ -110,11 +110,11 @@ setTimeout(() => {
   (async function () {
     try {
       const spiner = document.querySelector(".create-spinner");
-      const responseDetailMovies = await detailMovies(id.value.value[0]);
-      const responseDirector = await director(id.value.value[0]);
+      const responseDetailMovies = await detailTvSeries(id.value.value[0]);
+      const responseDirector = await directorTV(id.value.value[0]);
       spiner.remove();
       directors.value = responseDirector;
-      moviesDetail.value = responseDetailMovies;
+      tvSeriesDetail.value = responseDetailMovies;
       return;
     } catch (error) {
       if (!error.ok) {
@@ -130,10 +130,11 @@ setTimeout(() => {
     }
   })();
 }, 500);
+
 const pathYouTube = `https://www.youtube.com/embed/`;
 async function trailler() {
   const iframe = document.querySelector(".trailler-movie");
-  const response = await getTrailler(id.value.value[0]);
+  const response = await getTraillerTvSeries(id.value.value[0]);
   iframe.setAttribute("src", `${pathYouTube + response?.key}`);
   return;
 }
