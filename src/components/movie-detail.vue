@@ -1,6 +1,6 @@
 <template>
-  <section class="container-fluid bg-black p-2">
-    <div class="container">
+  <section class="container-fluid page-movie-detail bg-black p-2">
+    <div class="container movie-details" v-if="moviesDetail.length !== 0">
       <div class="distance"></div>
       <div class="row">
         <div class="col-md-4 mb-3 text-center">
@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-8">
           <p class="text-white synopsis">
-            <span class="text-white fw-bold">Synopsis : </span
+            <span class="text-white fw-bold">Synopsis: </span
             >{{ moviesDetail?.overview }}
           </p>
           <div class="detail-movie mt-3 text-white">
@@ -90,31 +90,57 @@ import {
   detailMovies,
   getTrailler,
 } from "@/assets/detailMovie.js";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 const directors = ref("");
 const moviesDetail = ref("");
 const pathImage = "https://image.tmdb.org/t/p/";
 const id = ref("");
 id.value = movie_id;
-(async function () {
+onMounted(() => {
+  const page_movie_detail = document.querySelector(".page-movie-detail");
+  page_movie_detail.insertAdjacentHTML(
+    "afterbegin",
+    `<div class="create-spinner text-center mt-2">
+      <div class="spinner-border text-warning"></div>
+      <p class="text-white">Please wait..</p>
+    </div>`
+  );
+});
+
+setTimeout(() => {
+  (async function () {
+    try {
+      const spiner = document.querySelector(".create-spinner");
+      const responseDetailMovies = detailMovies(id.value.value[0]);
+      const responseDirector = director(id.value.value[0]);
+      spiner.remove();
+      directors.value = await responseDirector;
+      moviesDetail.value = await responseDetailMovies;
+    } catch (error) {
+      if (!error.ok) {
+        const spiner = document.querySelector(".create-spinner");
+        const page_movie_detail = document.querySelector(".page-movie-detail");
+        page_movie_detail.insertAdjacentHTML(
+          "beforeend",
+          `<h4 class="text-warning text-center">Please Serching</h4>`
+        );
+        spiner.remove();
+      }
+      return;
+    }
+  })();
+}, 500);
+
+const pathYouTube = `https://www.youtube.com/embed/`;
+async function trailler() {
   try {
-    const responseDetailMovies = await detailMovies(id.value.value[0]);
-    const responseDirector = await director(id.value.value[0]);
-    directors.value = responseDirector;
-    moviesDetail.value = responseDetailMovies;
+    const iframe = document.querySelector(".trailler-movie");
+    const response = await getTrailler(id.value.value[0]);
+    iframe.setAttribute("src", `${pathYouTube + response?.key}`);
     return;
   } catch (error) {
     console.log(error);
-    return;
   }
-})();
-console.log(moviesDetail);
-const pathYouTube = `https://www.youtube.com/embed/`;
-async function trailler() {
-  const iframe = document.querySelector(".trailler-movie");
-  const response = await getTrailler(id.value.value[0]);
-  iframe.setAttribute("src", `${pathYouTube + response?.key}`);
-  return;
 }
 function closed(event) {
   event.target.nextElementSibling.setAttribute("src", "");
