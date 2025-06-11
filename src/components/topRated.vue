@@ -127,7 +127,6 @@ import { movie_id } from "@/assets/detailMovie.js";
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("watch-trailler-topRated")) {
     const id = e.target?.dataset?.idmovie;
-    console.log(id);
     movie_id.value.length = 0;
     movie_id.value.push(id);
     router.push("/movie-detail");
