@@ -1,7 +1,7 @@
 import index from "./index.js"
 import { ref } from "vue";
-const movie_id = ref([]);
-async function director(id) {
+const TvSeries_id = ref([]);
+async function directorTV(id) {
     try {
 
         const res = await index.callAPi(`https://api.themoviedb.org/3/tv/${id}/credits?language=en-US`)
@@ -12,7 +12,7 @@ async function director(id) {
         throw error
     }
 }
-async function detailMovies(id) {
+async function detailTvSeries(id) {
     try {
         const response = await index.callAPi(`https://api.themoviedb.org/3/tv/${id}?language=en-US`);
         const result = await response.json();
@@ -22,7 +22,7 @@ async function detailMovies(id) {
         throw error;
     }
 }
-async function getTrailler(id) {
+async function getTraillerTvSeries(id) {
     try {
         const response = await index.callAPi(`https://api.themoviedb.org/3/tv/${id}/videos`);
         const result = await response.json();
@@ -34,5 +34,5 @@ async function getTrailler(id) {
     }
 }
 export {
-    director, detailMovies, movie_id, getTrailler,
+    directorTV, detailTvSeries, TvSeries_id, getTraillerTvSeries,
 }
