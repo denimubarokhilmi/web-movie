@@ -1,0 +1,169 @@
+<template>
+  <section class="container-fluid bg-black p-2">
+    <div class="container">
+      <div style="margin-top: 100px"></div>
+      <div class="row">
+        <div class="col-md-4 mb-3 text-center">
+          <img
+            class="img-detail-movie rounded"
+            :src="`${
+              pathImage +
+              `w300/${
+                moviesDetail.poster_path == null
+                  ? moviesDetail.backdrop_path
+                  : moviesDetail.poster_path
+              }`
+            }`"
+            alt="detail"
+          />
+          <h4 class="text-white mt-3">{{ moviesDetail?.title }}</h4>
+        </div>
+        <div class="col-md-8">
+          <p class="text-white synopsis">
+            <span class="text-white fw-bold">Synopsis : </span
+            >{{ moviesDetail?.overview }}
+          </p>
+          <div class="detail-movie mt-3 text-white">
+            <p>
+              Negara :
+              <span
+                v-for="(item, index) in moviesDetail?.origin_country"
+                :key="index - 1"
+                >{{ item }},</span
+              >
+            </p>
+            <p>Sutradara : {{ directors?.name }}</p>
+            <p>
+              Genre :
+              <span v-for="(item, index) in moviesDetail?.genres" :key="index"
+                >{{ item?.name }},</span
+              >
+            </p>
+            <p>Rating : {{ moviesDetail?.vote_average.toFixed(1) }}</p>
+            <p>Status : {{ moviesDetail?.status }}</p>
+            <p>Tanggal rilis : {{ moviesDetail?.release_date }}</p>
+          </div>
+          <!-- Button to Open the Modal -->
+          <button
+            @click="trailler"
+            type="button"
+            class="rounded trailler mt-3"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          >
+            <i class="bi bi-play-circle"></i>
+
+            Trailler
+          </button>
+
+          <!-- The Modal -->
+          <div class="modal" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content bg-black">
+                <!-- Modal Header -->
+                <div class="modal-header border-0 d-block">
+                  <button
+                    @click="closed"
+                    class="bi bi-x-lg text-white fs-3 bg-transparent border-0 z-2 shadow"
+                    data-bs-dismiss="modal"
+                  ></button>
+                  <iframe
+                    class="shadow rounded trailler-movie"
+                    width="900"
+                    height="515"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+<script setup>
+import {
+  movie_id,
+  director,
+  detailMovies,
+  getTrailler,
+} from "@/assets/detailTvShow.js";
+import { ref } from "vue";
+const directors = ref("");
+const moviesDetail = ref("");
+const pathImage = "https://image.tmdb.org/t/p/";
+const id = ref("");
+id.value = movie_id;
+(async function () {
+  try {
+    const responseDetailMovies = await detailMovies(id.value.value[0]);
+    const responseDirector = await director(id.value.value[0]);
+    directors.value = responseDirector;
+    moviesDetail.value = responseDetailMovies;
+    return;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+})();
+const pathYouTube = `https://www.youtube.com/embed/`;
+async function trailler() {
+  const iframe = document.querySelector(".trailler-movie");
+  const response = await getTrailler(id.value.value[0]);
+  iframe.setAttribute("src", `${pathYouTube + response?.key}`);
+  return;
+}
+function closed(event) {
+  event.target.nextElementSibling.setAttribute("src", "");
+  return;
+}
+</script>
+<style scoped>
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+.img-detail-movie {
+  width: 280px;
+}
+.synopsis {
+  font-size: 1.3em;
+}
+.detail-movie {
+  font-size: 1.1em;
+}
+.trailler {
+  padding: 10px 30px;
+  background-color: yellow;
+}
+.trailler:hover {
+  background-color: white;
+}
+.modal-dialog {
+  max-width: 928px !important;
+}
+@media only screen and (max-width: 768px) {
+  .hero-movie-detail {
+    display: none;
+  }
+  .img-detail-movie {
+    width: 200px;
+  }
+  .synopsis {
+    font-size: 1.1em;
+  }
+  .modal-dialog {
+    max-width: 100%;
+  }
+  iframe {
+    max-width: 100%;
+    height: 290px;
+  }
+}
+</style>

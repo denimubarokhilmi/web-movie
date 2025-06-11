@@ -1,0 +1,326 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.text-nav {
+  position: relative;
+  color: white;
+  font-weight: bold;
+}
+.text-nav:focus,
+.text-nav:active {
+  color: yellow !important;
+}
+.search-hidden {
+  display: none;
+}
+.input-hidden {
+  background: transparent;
+  width: 100%;
+  display: none;
+  border: none;
+  color: white;
+  flex: 1;
+}
+.input-hidden:focus {
+  outline: 2px solid yellow;
+}
+.input-hidden::placeholder {
+  color: grey;
+}
+.text-nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    rgb(231, 250, 21),
+    rgb(243, 253, 55),
+    rgb(245, 237, 8)
+  );
+  transition: width 0.3s ease-in-out, color 1s;
+}
+.text-nav:hover::after {
+  width: 100%;
+}
+.text-nav:hover {
+  color: rgb(246, 255, 0);
+}
+
+.search-container {
+  background-color: #191a20;
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  width: 350px;
+}
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  flex: 1;
+}
+.search-input::placeholder {
+  color: #555;
+}
+.search-icon {
+  color: yellow;
+  font-size: 1.2rem;
+}
+
+.search-icon:hover {
+  cursor: pointer;
+}
+.hero {
+  position: relative;
+  background: url("../img/heroBG.jpeg") no-repeat center center/cover;
+  color: white;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+.movie-info {
+  display: block;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+.badge-custom {
+  background: white;
+  color: black;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.watch-btn {
+  border: 2px solid yellow;
+  color: white;
+  font-weight: bold;
+  padding: 15px 28px;
+  border-radius: 50px;
+  font-size: 0.9em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  transition: 0.3s;
+}
+
+.watch-btn:hover {
+  background: yellow;
+  color: black;
+}
+
+.hero-image {
+  border-radius: 20px;
+  max-width: 100%;
+  border: 4px solid yellow;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  border-bottom: 4px solid yellow;
+  color: yellow;
+  margin-left: 24px;
+  /* padding-bottom: 5px; */
+}
+.streaming {
+  margin-left: 24px;
+}
+
+.scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: yellow;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.star {
+  position: absolute;
+  top: -2px;
+  z-index: 1;
+  color: yellow;
+  background-color: #373636;
+}
+.card-relase {
+  width: 220px;
+  height: 395px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+.card-relase .image {
+  padding: 8px;
+  opacity: 1;
+  display: block;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.card-relase:hover .image {
+  opacity: 0.4;
+}
+
+.card-relase:hover .middle {
+  opacity: 1;
+}
+.card-title {
+  color: white;
+}
+.card-relase:hover .card-title {
+  color: yellow;
+}
+.text-middle {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.carousel-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img-carousel {
+  width: 80%;
+  height: 600px;
+}
+.option-movie {
+  background-color: transparent;
+  color: white;
+  padding: 4px 11px;
+  border: 1px solid grey;
+  margin: 0 7px 0 0;
+}
+.option-movie:focus {
+  background-color: yellow;
+  color: black;
+}
+.option-movie.active {
+  background-color: yellow;
+  color: black;
+}
+.info-movies {
+  color: white;
+  font-size: 0.9em;
+}
+
+.items-research img {
+  width: 180px;
+  height: 200px;
+}
+.movie-detail {
+  position: relative;
+  background: url("../img/heroBG.jpeg") no-repeat center center/cover;
+  color: white;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.img-movie-detail {
+  width: 280px;
+}
+.watch-video {
+  background-color: transparent;
+  padding: 8px 10px;
+  color: white;
+  border: 1px solid yellow;
+  margin-right: 8px;
+}
+.watch-video:hover {
+  background-color: yellow;
+  color: black;
+}
+.icon-hidden {
+  display: none;
+}
+@media only screen and (max-width: 770px) {
+  .hero {
+    align-items: baseline;
+    height: 65vh;
+  }
+  .hero .container {
+    margin-top: 12px;
+  }
+  .watch-btn {
+    margin-top: 12px;
+    padding: 10px 13px;
+  }
+  .search-container {
+    display: none;
+  }
+  .card-relase {
+    width: 150px;
+    height: 340px;
+  }
+
+  .carousel-center {
+    display: inline-block;
+  }
+  .img-carousel {
+    width: 400px;
+    height: 280px;
+  }
+  .search-hidden {
+    display: block;
+  }
+  .input-hidden {
+    display: inline-block;
+  }
+  .items-research img {
+    width: 130px;
+    height: 24vh;
+  }
+  .movie-info {
+    font-size: 0.9rem;
+  }
+  .streaming,
+  .highlight {
+    margin-left: 0;
+  }
+  .icon-hidden {
+    display: inline-block;
+  }
+}
