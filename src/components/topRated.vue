@@ -85,9 +85,9 @@ const BtnMoreMovie = async (event) => {
     "afterend",
     index.createSpinner()
   );
+  MoreMovie(urlAPI, pages);
   setTimeout(() => {
     const spiner = document.querySelector(".create-spinner");
-    MoreMovie(urlAPI, pages);
     spiner.remove();
     event.target.disabled = false;
   }, 1000);
