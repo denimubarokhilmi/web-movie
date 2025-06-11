@@ -88,7 +88,7 @@
 <script setup>
 import index from "@/assets/index.js";
 import { useRouter } from "vue-router";
-import { movie_id } from "@/assets/detailTvShow";
+import { TvSeries_id } from "@/assets/detailTvShow.js";
 const router = useRouter();
 import { ref } from "vue";
 const slicesMovie = ref([]);
@@ -106,8 +106,8 @@ const pathImage= 'https://image.tmdb.org/t/p/w1280';
 })();
 
 function trailler (event,id) { 
-  movie_id.value.length = 0;
-  movie_id.value.push(id);
+  TvSeries_id.value.length = 0;
+  TvSeries_id.value.push(id);
   router.push("/TvShow-detail");
  }
 </script>
