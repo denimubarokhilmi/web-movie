@@ -42,7 +42,10 @@
         ></slot>
       </div>
     </div>
-    <h4 v-else class="text-warning text-center">Please Searching..</h4>
+    <div v-else class="text-center text-warning">
+      <p>movie not found!</p>
+    <h4  class="text-warning text-center">Please Searching..</h4>
+    </div>
   </section>
 </template>
 <script setup>
