@@ -40,7 +40,7 @@
             </span>
             <input
               v-model="writingInput"
-              @keyup.prevent="HandleinputByKeyCode"
+              @keyup.enter.prevent="HandleinputByKeyCode"
               type="text"
               class="form-control bg-black text-white border-0 input-hidden rounded"
               placeholder="Find Favorite Movies"
@@ -51,7 +51,7 @@
         <!-- Search Bar -->
         <div class="search-container ms-3 order-2">
           <input
-            @keyup.prevent="HandleinputByKeyCode"
+            @keyup.enter.prevent="HandleinputByKeyCode"
             v-model="writingInput"
             type="text"
             class="search-input"
@@ -124,9 +124,10 @@ const handleIcon = function (e) {
 
 const HandleinputByKeyCode = async function (event) {
   try {
-    if (event.code === "Enter" || event.type === "click") {
+    const key = event?.code || "submit";
+    if (event.code === "Enter" || event.type === "click" || key === "submit") {
       const response = await index.callAPi(
-        `https://api.themoviedb.org/3/search/movie?query=${writingInput.value}&include_adult=false&language=en-US&page=1`
+        `https://api.themoviedb.org/3/search/movie?query=${writingInput.value.trim()}&include_adult=false&language=en-US&page=1`
       );
       const result = await response.json();
       if (searchMovies.value.length !== 0) {
