@@ -151,7 +151,7 @@ const HandleinputByKeyCode = async function (event) {
           router.push("/research");
           return;
         }
-        searchMovies.value.push(result);
+        searchMovies.value = [result];
         router.push("/research");
         writingInput.value = "";
         return;
