@@ -136,21 +136,25 @@ const HandleinputByKeyCode = async function (event) {
               </span>`
       );
       const response = await index.callAPi(
-        `https://api.themoviedb.org/3/search/movie?query=${writingInput.value.trim()}&include_adult=false&language=en-US&page=1`
+        `https://api.themoviedb.org/3/search/multi?query=${writingInput.value.trim()}&include_adult=false&language=en-US&page=1`
       );
+      index.writingInputOld.value = writingInput.value.trim();
       const result = await response.json();
+      index.totalPages.value = result.total_pages;
       setTimeout(() => {
         const spiner = document.querySelector(".create-spinner");
         spiner.remove();
-
         if (searchMovies.value.length !== 0) {
           searchMovies.value.length = 0;
-          searchMovies.value.push(...result.results);
+          searchMovies.value = [result];
           writingInput.value = "";
+          router.push("/research");
+          return;
         }
-        searchMovies.value.push(...result.results);
+        searchMovies.value.push(result);
         router.push("/research");
         writingInput.value = "";
+        return;
       }, 1000);
     }
   } catch (error) {

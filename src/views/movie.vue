@@ -62,7 +62,7 @@
             </button> -->
             <button 
             @click="trailler($event,id)"
-              class="watch-trailler-newRelase btn btn-danger"
+              class=" btn btn-danger"
               :data-idMovie="id"
             >
               Watch Trailler

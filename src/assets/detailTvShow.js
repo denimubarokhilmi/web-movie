@@ -4,10 +4,10 @@ const TvSeries_id = ref([]);
 async function directorTV(id) {
     try {
 
-        const res = await index.callAPi(`https://api.themoviedb.org/3/tv/${id}/credits?language=en-US`)
-        const hasil = await res.json();
-        const finds = hasil.crew.find(element => element.job == 'Director');
-        return finds;
+        const res = await index.callAPi(`https://api.themoviedb.org/3/tv/${id}/credits`)
+        const result = await res.json();
+        const filter = result.crew.map((el) => el).filter(jobCrew => jobCrew.department == 'Directing');
+        return filter;
     } catch (error) {
         throw error
     }
@@ -26,7 +26,7 @@ async function getTraillerTvSeries(id) {
     try {
         const response = await index.callAPi(`https://api.themoviedb.org/3/tv/${id}/videos`);
         const result = await response.json();
-        const finds = result.results.find(el => el.site == "YouTube");
+        const finds = result.results.find(el => el.type == "Trailer" && el.name == "Official Trailer");
         return finds;
 
     } catch (error) {

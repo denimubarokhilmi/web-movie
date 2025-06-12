@@ -11,7 +11,7 @@
         <div class="carousel-caption d-none d-md-block text-start mb-5">
           <h1 class="display-3  fw-bold">{{ item.name }}</h1 class="display-3">
             <button
-            @click="trailler($event,item.id)"
+            @click="traillerTvSeries($event,item.id)"
             type="button"
             class="rounded trailler mt-3"
             data-bs-toggle="modal"
@@ -60,8 +60,8 @@
               Watch Movieee
             </button> -->
             <button 
-            @click="trailler($event,id)"
-              class="watch-trailler-newRelase btn btn-danger"
+            @click="traillerTvSeries($event,id)"
+              class="btn btn-danger"
               :data-idMovie="id"
             >
               Watch Trailler
@@ -105,7 +105,7 @@ const pathImage= 'https://image.tmdb.org/t/p/w1280';
   }
 })();
 
-function trailler (event,id) { 
+function traillerTvSeries (event,id) { 
   TvSeries_id.value.length = 0;
   TvSeries_id.value.push(id);
   router.push("/TvShow-detail");

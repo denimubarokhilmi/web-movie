@@ -11,7 +11,7 @@
       <!-- content in js  -->
       <slot
         name="TvShow"
-        v-for="(item, index) in MoreDataMovies?.results"
+        v-for="(item, index) in MoreDataTvSeries?.results"
         :key="item.id"
         :id="item.id"
         :title="item.title"
@@ -24,7 +24,7 @@
     </div>
     <div class="d-flex justify-content-center mt-4 mb-4">
       <button
-        @click="BtnMoreMovie"
+        @click="BtnMoreTv"
         type="button"
         class="btn text-center se-more btn-warning"
       >
@@ -38,32 +38,32 @@ import index from "@/assets/index.js";
 import { ref } from "vue";
 const pathImage = "https://image.tmdb.org/t/p/w300";
 let count = ref(2);
-const MoreDataMovies = ref([]);
+const MoreDataTvSeries = ref([]);
 const pathAPI = `https://api.themoviedb.org/3/tv/popular?language=en-US&page=1`;
 (async function () {
   try {
     const response = await index.callAPi(pathAPI);
     const result = await response.json();
-    MoreDataMovies.value = result;
+    MoreDataTvSeries.value = result;
   } catch (error) {
     console.log(error);
   }
 })();
-async function BtnMoreMovie(ev) {
-  const res = await index.callAPi(
-    `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${count.value}`
-  );
-  const result = await res.json();
-  count.value++;
+async function BtnMoreTv(ev) {
   ev.target.parentElement.previousElementSibling.insertAdjacentHTML(
     "afterend",
     index.createSpinner()
   );
   ev.target.disabled = true;
+  const res = await index.callAPi(
+    `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${count.value}`
+  );
+  const result = await res.json();
+  count.value++;
   setTimeout(() => {
     const spiner = document.querySelector(".create-spinner");
     result.results.forEach((element) => {
-      MoreDataMovies.value.results.push(element);
+      MoreDataTvSeries.value.results.push(element);
     });
     spiner.remove();
     ev.target.disabled = false;

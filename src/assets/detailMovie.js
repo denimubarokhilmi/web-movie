@@ -24,7 +24,7 @@ async function getTrailler(id) {
     try {
         const response = await index.callAPi(`https://api.themoviedb.org/3/movie/${id}/videos`);
         const result = await response.json();
-        const finds = result.results.find(el => el.site == "YouTube");
+        const finds = result.results.find(el => el.type == "Trailer" && el.name == "Official Trailer");
         return finds;
     } catch (error) {
         throw error;

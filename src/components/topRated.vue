@@ -8,7 +8,7 @@
       </h2>
       <div
         ref="topRating"
-        class="new-relase d-flex flex-wrap align-items-center justify-content-center mt-5"
+        class="top-ratings d-flex flex-wrap align-items-center justify-content-center mt-5"
       >
         <!-- content in js  -->
         <slot

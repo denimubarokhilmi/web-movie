@@ -1,9 +1,9 @@
 <template>
   <section class="container-fluid page-tv-show bg-black p-2">
     <div class="container" v-if="tvSeriesDetail.length != 0">
-      <div style="margin-top: 100px"></div>
+      <div class="distance"></div>
       <div class="row">
-        <div class="col-md-4 mb-3 text-center">
+        <div class="col-lg-4 mb-3 text-center">
           <img
             class="img-detail-movie rounded"
             :src="`${
@@ -32,7 +32,17 @@
                 >{{ item }},</span
               >
             </p>
-            <p>Sutradara : {{ directors?.name }}</p>
+            <p>
+              Sutradara :
+              <span
+                v-if="directors.length != 0"
+                v-for="(item, index) in directors"
+                :key="index - 1"
+              >
+                {{ item?.name }},
+              </span>
+              <span v-else>Not Found</span>
+            </p>
             <p>
               Genre :
               <span v-for="(item, index) in tvSeriesDetail?.genres" :key="index"
@@ -45,7 +55,7 @@
           </div>
           <!-- Button to Open the Modal -->
           <button
-            @click="trailler"
+            @click="traillerTv"
             type="button"
             class="rounded trailler mt-3"
             data-bs-toggle="modal"
@@ -130,9 +140,8 @@ setTimeout(() => {
     }
   })();
 }, 500);
-console.log(tvSeriesDetail);
 const pathYouTube = `https://www.youtube.com/embed/`;
-async function trailler() {
+async function traillerTv() {
   const iframe = document.querySelector(".trailler-movie");
   const response = await getTraillerTvSeries(id.value.value[0]);
   iframe.setAttribute("src", `${pathYouTube + response?.key}`);
@@ -171,7 +180,13 @@ function closed(event) {
 .modal-dialog {
   max-width: 928px !important;
 }
+.distance {
+  margin-top: 110px;
+}
 @media only screen and (max-width: 768px) {
+  .distance {
+    margin-top: 20px;
+  }
   .hero-movie-detail {
     display: none;
   }
@@ -187,6 +202,11 @@ function closed(event) {
   iframe {
     max-width: 100%;
     height: 290px;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .distance {
+    margin-top: 20px;
   }
 }
 </style>
