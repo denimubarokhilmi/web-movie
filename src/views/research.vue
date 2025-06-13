@@ -1,7 +1,7 @@
 <template>
   <section class="research container-fluid bg-black p-1">
     <div class="container mt-4" v-show="resultMovie.length !== 0">
-      <div ref="filter-option" class="d-flex align-items-center">
+      <div ref="filterOption" class="d-flex align-items-center">
         <button
           @click="handleActives"
           class="option-movie active rounded-pill"
@@ -85,7 +85,7 @@ const pagesIndex = inject("pages");
 const optionss = ref("semua");
 const currentPage = ref(1);
 let resultMovie = ref("");
-
+const filterOption = ref(null);
 provide("providePage", currentPage);
 let totalPages = 0;
 let isComponent = computed(() => {
@@ -123,15 +123,19 @@ const handleActives = async (event) => {
 };
 const goToPage = async (page) => {
   try {
+    filterOption.value.insertAdjacentHTML("afterend", index.createSpinner());
+    const spinner = document.querySelector(".create-spinner");
     if (page < 1 || page > totalPages) return;
     currentPage.value = page;
     const findsPage = movieResearch.value.find((el) => el.page == page);
     if (findsPage) {
+      setTimeout(() => spinner.remove(), 500);
       return;
     } else {
       const res = await index.nextPage(currentPage.value);
       const oldData = [...movieResearch.value];
       movieResearch.value = [...oldData, res];
+      setTimeout(() => spinner.remove(), 500);
       return;
     }
   } catch (error) {

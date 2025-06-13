@@ -81,9 +81,7 @@
       </div>
     </div>
   </div>
-  <div v-else class="text-warning mt-3 fs-5 text-center">
-    <p>Movie Not Found</p>
-  </div>
+  <div v-else class="text-warning handling mt-3 fs-5 text-center"></div>
 </template>
 <script setup>
 import { ref, computed, inject, onMounted } from "vue";
@@ -115,7 +113,11 @@ onMounted(() => {
 const isMovie = computed(() => {
   return movieResearch.value.find((el) => el.page == page.value.value);
 });
-
+if (isMovie == undefined) {
+  document
+    .querySelector(".handling")
+    .insertAdjacentHTML("beforeend", `<p>Movie Not Found</p>`);
+}
 const router = useRouter();
 function movieDetail(event, id, type) {
   TvSeries_id.value.length = 0;
