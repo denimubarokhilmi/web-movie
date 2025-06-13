@@ -1,28 +1,28 @@
 <template>
   <div
-    v-if="isMovie.length !== 0"
-    class="tv-filter row border-top border-secondary mt-3"
+    v-if="isMovie"
+    class="researchM movie-filter row border-top border-secondary mt-3"
   >
     <div
       class="col-md-12 mt-4"
-      v-for="(item, index) in isMovie"
+      v-for="(item, index) in isMovie.results"
       :key="index - 1"
     >
       <div class="items-research d-flex">
         <img
           :src="`https://image.tmdb.org/t/p/w300/${
-            item?.poster_path ? item?.poster_path : item?.backdrop_path
+            item.poster_path ? item.poster_path : item.backdrop_path
           }`"
           class="rounded"
           alt="gambar"
         />
         <div class="movie-info ms-3">
           <h5 class="text-white title-research">
-            {{ item?.title ? item?.title : item?.name }}
+            {{ item.title ? item.title : item.name }}
           </h5>
           <div class="info-movies">
             <b>Genre : </b>
-            <span v-for="(id, index) in item?.genre_ids" :key="index - 1">{{
+            <span v-for="(id, index) in item.genre_ids" :key="index - 1">{{
               id == 28
                 ? "Action "
                 : id == 12
@@ -67,12 +67,12 @@
           <div class="info-movies">
             <b>Rating : </b>
             <span class="text-white">{{
-              Math.floor(item?.vote_average * 10) / 10
+              Math.floor(item.vote_average * 10) / 10
             }}</span>
           </div>
           <div class="info-movies mb-3"></div>
           <a
-            @click="movieDetail($event, item?.id, item?.media_type)"
+            @click="movieDetail($event, item.id, item.media_type)"
             class="text-decoration-none fw-bold fs-6 text-danger"
             >Watch Now
             <i class="bi bi-caret-right-fill"></i>
@@ -81,8 +81,8 @@
       </div>
     </div>
   </div>
-  <div v-else class="text-warning mt-2 fs-5 text-center">
-    Tv Series not found
+  <div v-else class="text-warning mt-3 fs-5 text-center">
+    <p>Movie Not Found</p>
   </div>
 </template>
 <script setup>
@@ -94,9 +94,8 @@ const movieResearch = inject("searchMovie");
 const providePage = inject("providePage");
 const page = ref(0);
 page.value = providePage;
-
 onMounted(() => {
-  const page_movie_detail = document.querySelector(".tv-filter");
+  const page_movie_detail = document.querySelector(".movie-filter");
   if (page_movie_detail) {
     page_movie_detail.insertAdjacentHTML(
       "afterbegin",
@@ -114,10 +113,9 @@ onMounted(() => {
 });
 
 const isMovie = computed(() => {
-  return movieResearch.value
-    .find((el) => el.page == page.value.value)
-    .results.filter((mov) => mov.media_type == "tv");
+  return movieResearch.value.find((el) => el.page == page.value.value);
 });
+
 const router = useRouter();
 function movieDetail(event, id, type) {
   TvSeries_id.value.length = 0;
@@ -135,6 +133,7 @@ function movieDetail(event, id, type) {
 a:hover {
   cursor: pointer;
 }
+
 @media only screen and (max-width: 768px) {
   .title-research {
     font-size: 0.9em;
