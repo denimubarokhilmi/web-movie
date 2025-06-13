@@ -1,6 +1,6 @@
 <template>
   <section class="research container-fluid bg-black p-1">
-    <div class="container-lg mt-4" v-if="resultMovie.length !== 0">
+    <div class="container mt-4" v-if="resultMovie.length !== 0">
       <div class="d-flex align-items-center">
         <button
           @click="handleActives"
@@ -37,11 +37,11 @@
               :src="`https://image.tmdb.org/t/p/w300/${
                 item.poster_path ? item.poster_path : item.backdrop_path
               }`"
-              class="rounded"
+              class="rounded img-fluid"
               alt="gambar"
             />
             <div class="movie-info ms-3">
-              <h5 class="text-white">
+              <h5 class="text-white title-research">
                 {{ item.title ? item.title : item.name }}
               </h5>
               <div class="info-movies">
@@ -265,5 +265,12 @@ const goToPage = async (page) => {
 }
 a:hover {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .title-research,
+  .info-movies {
+    font-size: 0.9em;
+  }
 }
 </style>
