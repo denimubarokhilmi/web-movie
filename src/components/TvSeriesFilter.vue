@@ -14,7 +14,7 @@
         alt="gambar"
       />
       <div class="movie-info ms-3">
-        <h5 class="text-white">
+        <h5 class="text-white title-research">
           {{ item.title ? item.title : item.name }}
         </h5>
         <div class="info-movies">
@@ -70,7 +70,7 @@
         <div class="info-movies mb-3"></div>
         <a
           @click="movieDetail($event, item.id, item.media_type)"
-          class="text-decoration-none fw-bold fs-5 text-danger"
+          class="text-decoration-none fw-bold fs-6 text-danger"
           >Watch Now
           <i class="bi bi-caret-right-fill"></i>
         </a>
@@ -124,5 +124,13 @@ function movieDetail(event, id, type) {
 <style scoped>
 a:hover {
   cursor: pointer;
+}
+@media only screen and (max-width: 768px) {
+  .title-research {
+    font-size: 0.9em;
+  }
+  .info-movies {
+    font-size: 0.8em;
+  }
 }
 </style>
