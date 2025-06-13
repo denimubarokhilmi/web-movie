@@ -26,7 +26,7 @@ async function getTraillerTvSeries(id) {
     try {
         const response = await index.callAPi(`https://api.themoviedb.org/3/tv/${id}/videos`);
         const result = await response.json();
-        const finds = result.results.find(el => el.type == "Trailer" && el.name == "Official Trailer");
+        const finds = result.results.find(el => el.type == "Trailer");
         return finds;
 
     } catch (error) {
