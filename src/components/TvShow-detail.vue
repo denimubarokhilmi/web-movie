@@ -18,7 +18,7 @@
           />
           <h4 class="text-white mt-3">{{ tvSeriesDetail?.name }}</h4>
         </div>
-        <div class="col-md-8">
+        <div class="col-lg-8">
           <p class="text-white synopsis">
             <span class="text-white fw-bold">Synopsis : </span
             >{{ tvSeriesDetail?.overview }}

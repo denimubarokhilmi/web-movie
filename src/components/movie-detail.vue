@@ -3,7 +3,7 @@
     <div class="container movie-details" v-if="moviesDetail.length !== 0">
       <div class="distance"></div>
       <div class="row">
-        <div class="col-md-4 mb-3 text-center">
+        <div class="col-lg-4 mb-3 text-center">
           <img
             class="img-detail-movie rounded"
             :src="`${
@@ -18,7 +18,7 @@
           />
           <h4 class="text-white mt-3">{{ moviesDetail?.title }}</h4>
         </div>
-        <div class="col-md-8">
+        <div class="col-lg-8">
           <p class="text-white synopsis">
             <span class="text-white fw-bold">Synopsis: </span
             >{{ moviesDetail?.overview }}
@@ -197,6 +197,11 @@ function closed(event) {
   iframe {
     max-width: 100%;
     height: 290px;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .distance {
+    margin-top: 20px;
   }
 }
 </style>
