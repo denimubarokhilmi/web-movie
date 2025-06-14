@@ -12,10 +12,10 @@
       <slot
         name="TvShow"
         v-for="(item, index) in MoreDataTvSeries?.results"
-        :key="item.id"
-        :id="item.id"
-        :title="item.title"
-        :rating="item.vote_average.toFixed(1)"
+        :key="item?.id"
+        :id="item?.id"
+        :title="item?.title ? item?.title : item?.name"
+        :rating="item?.vote_average?.toFixed(1)"
         :pathImg="`${
           pathImage +
           `${item.poster_path == null ? item.backdrop_path : item.poster_path}`

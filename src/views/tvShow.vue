@@ -9,9 +9,9 @@
           />
          <div class=" bg-black overlays ">adasd</div>
         <div class="carousel-caption d-none d-md-block text-start mb-5">
-          <h1 class="display-3  fw-bold">{{ item.name }}</h1 class="display-3">
+          <h1 class="display-3  fw-bold">{{ item?.name }}</h1 class="display-3">
             <button
-            @click="traillerTvSeries($event,item.id)"
+            @click="traillerTvSeries($event,item?.id)"
             type="button"
             class="rounded trailler mt-3"
             data-bs-toggle="modal"
