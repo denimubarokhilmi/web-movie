@@ -136,3 +136,9 @@ document.addEventListener("click", (e) => {
   }
 });
 </script>
+
+<style scoped>
+a:hover {
+  cursor: pointer;
+}
+</style>
