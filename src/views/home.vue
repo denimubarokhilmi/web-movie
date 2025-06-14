@@ -19,7 +19,7 @@
             <span><i class="bi bi-calendar3"></i> 2021</span>
             <span><i class="bi bi-clock"></i> 120 min</span>
           </div>
-          <a href="#" class="watch-btn mb-3">
+          <a @click="movieDetail($event, 961268)" class="watch-btn mb-3">
             <i class="bi bi-play-circle"></i> WATCH NOW
           </a>
         </div>
@@ -109,9 +109,14 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 import { movie_id } from "@/assets/detailMovie.js";
-
+function movieDetail(event, id) {
+  movie_id.value.length = 0;
+  movie_id.value.push(id);
+  router.push("/compExample");
+}
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("watch-trailler-newRelase")) {
     const id = e.target.dataset.idmovie;
