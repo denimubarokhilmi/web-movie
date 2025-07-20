@@ -1,28 +1,94 @@
 <template>
   <section class="research container-fluid bg-black p-1">
     <div class="container mt-4" v-show="resultMovie.length !== 0">
-      <div ref="filterOption" class="d-flex align-items-center">
-        <button
-          @click="handleActives"
-          class="option-movie active rounded-pill"
-          data-option="semua"
-        >
-          semua
-        </button>
-        <button
-          @click="handleActives"
-          class="option-movie rounded-pill"
-          data-option="movie"
-        >
-          Movie
-        </button>
-        <button
-          @click="handleActives"
-          class="option-movie rounded-pill"
-          data-option="tv"
-        >
-          Tv Series
-        </button>
+      <div class="horizontal-scroll">
+        <div ref="filterOption" class="d-flex align-items-center">
+          <button
+            @click="handleActives"
+            class="option-movie active rounded-pill"
+            data-option="semua"
+          >
+            semua
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="movie"
+          >
+            Movie
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="tv"
+          >
+            TvSeries
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="Action"
+          >
+            Action
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="Documentary"
+          >
+            Documentary
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="Adventure"
+          >
+            Adventure
+          </button>
+
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="Horor"
+          >
+            Horor
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="Romance"
+          >
+            Romance
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="Thriller"
+          >
+            Thriller
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="Drama"
+          >
+            Drama
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="Comedy"
+          >
+            Comedy
+          </button>
+          <button
+            @click="handleActives"
+            class="option-movie rounded-pill"
+            data-option="Animation"
+          >
+            Animation
+          </button>
+        </div>
       </div>
       <component :is="isComponent" v-if="isComponent"></component>
 
@@ -88,6 +154,7 @@ let resultMovie = ref("");
 const filterOption = ref(null);
 provide("providePage", currentPage);
 let totalPages = 0;
+
 let isComponent = computed(() => {
   return optionss.value == "movie"
     ? "movieFilter"
@@ -95,9 +162,26 @@ let isComponent = computed(() => {
     ? "TvSeriesFilter"
     : optionss.value == "semua"
     ? "allMovie"
+    : optionss.value == "Action"
+    ? "actionFilter"
+    : optionss.value == "Documentary"
+    ? "documentaryFilter"
+    : optionss.value == "Adventure"
+    ? "adventureFilter"
+    : optionss.value == "Horor"
+    ? "hororFilter"
+    : optionss.value == "Romance"
+    ? "romanceFilter"
+    : optionss.value == "Thriller"
+    ? "thrillerFilter"
+    : optionss.value == "Drama"
+    ? "dramaFilter"
+    : optionss.value == "Comedy"
+    ? "comedyFilter"
+    : optionss.value == "Animation"
+    ? "animationFilter"
     : "";
 });
-
 watch(
   movieResearch,
   (newVal) => {
@@ -158,7 +242,30 @@ const goToPage = async (page) => {
 a:hover {
   cursor: pointer;
 }
-
+.horizontal-scroll {
+  width: 100%;
+  overflow-x: scroll;
+  scrollbar-color: transparent transparent;
+}
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+.option-movie {
+  background-color: transparent;
+  color: white;
+  padding: 4px 11px;
+  width: 400px;
+  border: 1px solid grey;
+  margin: 0 7px 0 0;
+}
+.option-movie:focus {
+  background-color: yellow;
+  color: black;
+}
+.option-movie.active {
+  background-color: yellow;
+  color: black;
+}
 @media only screen and (max-width: 768px) {
   .title-research {
     font-size: 0.9em;

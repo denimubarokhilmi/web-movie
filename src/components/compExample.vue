@@ -47,7 +47,7 @@
           <button
             @click="trailler"
             type="button"
-            class="rounded trailler mt-3 me-2"
+            class="rounded btn-trailler mt-3 me-2"
             data-bs-toggle="modal"
             data-bs-target="#myModal"
           >
@@ -57,7 +57,7 @@
           </button>
           <button
             type="button"
-            class="rounded bg-danger trailler text-white mt-2"
+            class="rounded bg-danger btn-trailler text-white mt-2"
             data-bs-toggle="modal"
             data-bs-target="#example"
           >
@@ -200,11 +200,12 @@ video {
 .detail-movie {
   font-size: 1.1em;
 }
-.trailler {
+.btn-trailler {
+  border: none !important;
   padding: 10px 30px;
   background-color: yellow;
 }
-.trailler:hover {
+.btn-trailler:hover {
   background-color: white;
 }
 .modal-dialog {
@@ -214,6 +215,9 @@ video {
   margin-top: 110px;
 }
 @media only screen and (max-width: 768px) {
+  .btn-trailler {
+    padding: 6px 20px;
+  }
   .distance {
     margin-top: 20px;
   }

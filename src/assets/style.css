@@ -227,21 +227,7 @@
   width: 80%;
   height: 600px;
 }
-.option-movie {
-  background-color: transparent;
-  color: white;
-  padding: 4px 11px;
-  border: 1px solid grey;
-  margin: 0 7px 0 0;
-}
-.option-movie:focus {
-  background-color: yellow;
-  color: black;
-}
-.option-movie.active {
-  background-color: yellow;
-  color: black;
-}
+
 .info-movies {
   color: white;
   font-size: 0.9em;

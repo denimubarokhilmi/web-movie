@@ -57,7 +57,7 @@
           <button
             @click="traillerTv"
             type="button"
-            class="rounded trailler mt-3"
+            class="rounded btn-trailler mt-3"
             data-bs-toggle="modal"
             data-bs-target="#myModal"
           >
@@ -153,6 +153,9 @@ function closed(event) {
 }
 </script>
 <style scoped>
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .hero-overlay {
   position: absolute;
   top: 0;
@@ -165,16 +168,17 @@ function closed(event) {
   width: 280px;
 }
 .synopsis {
-  font-size: 1.3em;
+  font-size: 1em;
 }
 .detail-movie {
-  font-size: 1.1em;
+  font-size: 1em;
 }
-.trailler {
+.btn-trailler {
+  border: none !important;
   padding: 10px 30px;
   background-color: yellow;
 }
-.trailler:hover {
+.btn-trailler:hover {
   background-color: white;
 }
 .modal-dialog {
@@ -184,6 +188,9 @@ function closed(event) {
   margin-top: 110px;
 }
 @media only screen and (max-width: 768px) {
+  .btn-trailler {
+    padding: 6px 20px;
+  }
   .distance {
     margin-top: 20px;
   }
