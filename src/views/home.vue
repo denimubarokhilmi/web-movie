@@ -8,7 +8,6 @@
         <div class="col-md-6">
           <h4 class="text-warning fw-bold fs-1">Movflx</h4>
           <h1 class="fw-bold display-4">
-            Unlimited
             <span class="text-decoration-underline text-warning">Movie</span>,
             TV Shows, & More.
           </h1>
